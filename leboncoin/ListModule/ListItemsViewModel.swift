@@ -49,7 +49,7 @@ class ListItemsViewModel : FilterViewControllerDelegate {
     func applyFilter(_ controller: FilterCollectionViewController, category_id: Int?) {
         self.allItems = initialList
         if let category_id = category_id {
-            var filteredItems = allItems.filter { $0.category_id == category_id }
+            let filteredItems = allItems.filter { $0.category_id == category_id }
             self.allItems = filteredItems
         }
     }
