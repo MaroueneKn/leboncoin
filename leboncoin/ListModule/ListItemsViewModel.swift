@@ -49,7 +49,7 @@ class ListItemsViewModel : FilterViewControllerDelegate {
         self.allItems = initialList
         if let category_id = category_id {
             let filteredItems = allItems.filter { $0.category_id == category_id }
-            self.allItems = filteredItems
+            self.allItems = filteredItems.sorted(by: {$0.is_urgent && !$1.is_urgent})
         }
     }
     
