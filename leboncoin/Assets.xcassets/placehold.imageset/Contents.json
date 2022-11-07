@@ -1,6 +1,7 @@
 {
-  "colors" : [
+  "images" : [
     {
+      "filename" : "placehold.jpeg",
       "idiom" : "universal"
     }
   ],

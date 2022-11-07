@@ -7,7 +7,10 @@ settings:
   USER_DEFINED_VERSION: "1"
 targets:
   leboncoin:
-    scheme: {}
+    scheme:
+        testTargets:
+            - leboncoinTests
+            - leboncoinUITests
     type: application
     platform: iOS
     settings:
@@ -26,3 +29,25 @@ targets:
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
     sources:
       - path: leboncoin
+      
+  leboncoinTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources: [leboncoinTests]
+    dependencies:
+      - target: leboncoin
+    settings:
+      INFOPLIST_FILE: leboncoinTests/Info.plist
+      PRODUCT_BUNDLE_IDENTIFIER: com.leboncoin.test
+
+  leboncoinUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources: [leboncoinUITests]
+    dependencies:
+      - target: leboncoin
+    settings:
+      INFOPLIST_FILE: leboncoinUITests/Info.plist
+      PRODUCT_BUNDLE_IDENTIFIER: com.leboncoin.uitest
