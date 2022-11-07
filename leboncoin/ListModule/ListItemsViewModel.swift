@@ -21,8 +21,9 @@ class ListItemsViewModel : FilterViewControllerDelegate {
         Service.shared.getData(item) { response in
             switch response {
             case .results(let results) :
-                self.initialList = results
-                self.allItems = results
+                self.initialList = results.sorted(by: {$0.creation_date > $1.creation_date})
+                self.initialList = self.initialList.sorted(by: {$0.is_urgent && !$1.is_urgent})
+                self.allItems = self.initialList
                 completionHandler(true)
             case .error(_):
             completionHandler(false)
@@ -48,8 +49,8 @@ class ListItemsViewModel : FilterViewControllerDelegate {
     func applyFilter(_ controller: FilterCollectionViewController, category_id: Int?) {
         self.allItems = initialList
         if let category_id = category_id {
-            let filteredItems = allItems.filter { $0.category_id == category_id }
-            self.allItems = filteredItems.sorted(by: {$0.is_urgent && !$1.is_urgent})
+            var filteredItems = allItems.filter { $0.category_id == category_id }
+            self.allItems = filteredItems
         }
     }
     
